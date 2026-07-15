@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Creekside Bar &amp; Grill — hand-breaded appetizers, wood-fired steaks, house-made sausage, and 8 wing sauces. Steak Pit every Fri &amp; Sat from 5pm.">
+<meta name="theme-color" content="#2E5030">
+<meta property="og:title" content="Creekside Bar &amp; Grill — Wood-Fired, Hand-Made">
+<meta property="og:description" content="Every sauce, every sausage link, and every scoop of coleslaw crafted right here.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<title>Creekside Bar &amp; Grill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#F7F3ED;color:#1C1C1C;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#E4DDD3}
+::-webkit-scrollbar-thumb{background:#3A5C3E;border-radius:3px}
+:root{
+  --green:#2E5030;--green-mid:#3D6B41;--green-pale:#ECF2EC;
+  --amber:#B8893E;--ink:#1C1C1C;--muted:#6A6460;--line:#E0D9CF;
+  --cream:#F7F3ED;--white:#FFFFFF;
+  --shadow:0 1px 3px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.06);
+  --shadow-lg:0 4px 12px rgba(0,0,0,.08),0 20px 40px rgba(0,0,0,.10);
+  --r:12px;
+  --font-serif:"Playfair Display",Georgia,serif;
+  --font-sans:"Inter",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",monospace;
+}
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:300;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(247,243,237,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s}
+#nav.stuck{border-color:var(--line);box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:var(--green);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.3;stroke-linecap:round}
+.logo-words strong{font-family:var(--font-serif);font-size:1.05rem;font-weight:700;display:block;line-height:1.1}
+.logo-words small{font-size:.67rem;color:var(--muted);letter-spacing:.04em;display:block}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-links a{padding:8px 14px;border-radius:8px;font-size:.87rem;font-weight:500;color:var(--muted);transition:background .15s,color .15s}
+.nav-links a:hover{background:var(--green-pale);color:var(--green)}
+.nav-cta{background:var(--green)!important;color:#fff!important;padding:9px 20px!important;border-radius:8px;font-weight:600!important;transition:background .15s,transform .12s,box-shadow .12s!important}
+.nav-cta:hover{background:#244226!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(46,80,48,.38)!important}
+#hambtn{display:none;flex-direction:column;gap:5px;padding:8px;border-radius:8px}
+#hambtn span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+#hambtn.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+#hambtn.open span:nth-child(2){opacity:0}
+#hambtn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+#mob-nav{position:fixed;inset:0;z-index:290;background:rgba(14,22,14,.97);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;opacity:0;pointer-events:none;transition:opacity .3s}
+#mob-nav.open{opacity:1;pointer-events:all}
+#mob-nav a{font-family:var(--font-serif);font-size:2rem;color:#F5F0E8;padding:12px 32px;border-radius:10px;transition:background .15s}
+#mob-nav a:hover{background:rgba(255,255,255,.1)}
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:#0B140C}
+.hero-photo{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat}
+.hero-dim{position:absolute;inset:0;background:rgba(6,10,6,.70)}
+.hero-vig{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,0,0,.50) 0%,rgba(0,0,0,0) 65%)}
+.hero-inner{position:relative;z-index:2;padding:0 5%;width:100%;margin-top:64px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+.hero-copy{max-width:600px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:22px}
+.hero-eyebrow::before{content:'';width:26px;height:1px;background:rgba(255,255,255,.4)}
+.hero-copy h1{font-family:var(--font-serif);font-size:clamp(2.4rem,5.5vw,4rem);font-weight:700;line-height:1.04;letter-spacing:-.015em;color:#FFFFFF;text-shadow:0 2px 28px rgba(0,0,0,.45);margin-bottom:20px}
+.hero-copy h1 em{font-style:italic;font-weight:500;color:#9DCE9F}
+.hero-copy p{font-size:1.05rem;line-height:1.68;color:rgba(255,255,255,.8);max-width:460px;margin-bottom:36px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-solid{display:inline-flex;align-items:center;gap:9px;background:#fff;color:var(--ink);padding:13px 26px;border-radius:9px;font-size:.92rem;font-weight:700;box-shadow:0 4px 22px rgba(0,0,0,.28);transition:transform .18s,box-shadow .18s,background .15s}
+.btn-solid:hover{background:#F0EBE2;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.btn-solid svg,.btn-ghost svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;flex-shrink:0}
+.btn-ghost{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);padding:13px 26px;border-radius:9px;font-size:.92rem;font-weight:500;backdrop-filter:blur(6px);transition:background .18s,transform .18s}
+.btn-ghost:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
+.hero-pills{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.hpill{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);border-radius:12px;padding:12px 16px;color:#fff;min-width:230px}
+.hpill img{width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.hpill-txt strong{display:block;font-size:.9rem;font-weight:600}
+.hpill-txt span{font-size:.75rem;color:rgba(255,255,255,.62)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(255,255,255,.4);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.hero-scroll svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;animation:bd 2.2s ease-in-out infinite}
+@keyframes bd{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+/* ABOUT */
+#about{background:var(--white);border-bottom:1px solid var(--line)}
+.about-wrap{max-width:1260px;margin:0 auto;padding:72px 5%;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.eyebrow{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px}
+.about-wrap h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin-bottom:16px}
+.about-wrap p{font-size:.96rem;color:var(--muted);line-height:1.72;margin-bottom:12px}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.pillar{padding:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--cream)}
+.pillar img{width:38px;height:38px;border-radius:8px;object-fit:cover;margin-bottom:10px}
+.pillar h4{font-size:.9rem;font-weight:600;margin-bottom:3px}
+.pillar p{font-size:.79rem;color:var(--muted);line-height:1.45;margin:0}
+.photo-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:16px;overflow:hidden}
+.photo-mosaic img{height:195px;object-fit:cover;transition:transform .45s ease}
+.photo-mosaic img:hover{transform:scale(1.05)}
+.photo-mosaic .wide{grid-column:1/-1;height:215px}
+/* MENU */
+#menu{background:var(--cream)}
+.menu-top{max-width:1260px;margin:0 auto;padding:60px 5% 0;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.menu-top h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3vw,2.3rem);font-weight:700;letter-spacing:-.01em}
+.search-field{position:relative}
+.search-field svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:2;pointer-events:none}
+.search-field input{font-family:var(--font-sans);font-size:.88rem;padding:11px 16px 11px 40px;border:1px solid var(--line);border-radius:9px;background:var(--white);color:var(--ink);width:280px;outline:none;transition:border-color .15s,box-shadow .15s}
+.search-field input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(46,80,48,.12)}
+.menu-layout{max-width:1260px;margin:0 auto;padding:28px 5% 80px;display:grid;grid-template-columns:210px 1fr;gap:30px;align-items:start}
+.m-sidebar{position:sticky;top:80px;background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sidebar-title{padding:13px 16px 11px;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.s-group{padding:8px 0}
+.s-group-lbl{font-family:var(--font-mono);font-size:.61rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:5px 16px 4px;opacity:.6}
+.s-item{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;cursor:pointer;border-left:3px solid transparent;font-size:.86rem;font-weight:500;color:var(--ink);transition:background .12s,border-color .12s,color .12s,padding-left .15s}
+.s-item:hover{background:var(--green-pale);color:var(--green)}
+.s-item.on{background:var(--green-pale);border-left-color:var(--green);color:var(--green);font-weight:600;padding-left:18px}
+.s-item .ct{font-family:var(--font-mono);font-size:.67rem;background:var(--line);color:var(--muted);padding:1px 7px;border-radius:10px}
+.s-item.on .ct{background:var(--green);color:#fff}
+/* MENU BODY */
+.menu-body{display:flex;flex-direction:column;gap:58px}
+.cat-section{scroll-margin-top:90px}
+.cat-hd{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.cat-ico{width:36px;height:36px;border-radius:9px;object-fit:cover;flex-shrink:0}
+.cat-hd h3{font-family:var(--font-serif);font-size:1.6rem;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+.cat-rule{flex:1;height:1px;background:var(--line)}
+.cat-note{font-size:.84rem;color:var(--muted);margin:8px 0 20px;max-width:580px;line-height:1.55}
+.cat-note strong{color:var(--ink);font-weight:600}
+/* CARDS */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:rgba(184,137,62,.35)}
+.card-img-box{position:relative;height:180px;flex-shrink:0;background:#1A2E1C;overflow:hidden}
+.card-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.card:hover .card-photo{transform:scale(1.07)}
+.card-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:10px;background:linear-gradient(135deg,#1A2E1C 0%,#26472A 60%,#162A28 100%)}
+.card-fallback svg{width:44px;height:44px;stroke:rgba(255,255,255,.3);fill:none;stroke-width:1.4}
+.card-fallback span{font-family:var(--font-mono);font-size:.7rem;color:rgba(255,255,255,.5);text-align:center;padding:0 14px;line-height:1.4}
+.card-tags{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-wrap:wrap;z-index:1}
+.ctag{font-family:var(--font-mono);font-size:.61rem;font-weight:600;padding:3px 8px;border-radius:20px;backdrop-filter:blur(6px)}
+.ctag-pop{background:rgba(178,58,18,.9);color:#fff}
+.ctag-house{background:rgba(46,80,48,.9);color:#fff}
+.ctag-spicy{background:rgba(155,15,15,.88);color:#fff}
+.ctag-local{background:rgba(55,100,110,.9);color:#fff}
+.card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:5px}
+.card-name{font-family:var(--font-serif);font-weight:600;font-size:.98rem;line-height:1.2}
+.card-price{font-family:var(--font-mono);font-size:.9rem;color:var(--green);font-weight:500;white-space:nowrap;flex-shrink:0}
+.card-price .tiers{display:flex;flex-direction:column;gap:0;text-align:right}
+.card-price .tiers span{font-size:.72rem;color:var(--muted);line-height:1.55}
+.card-desc{font-size:.81rem;color:#57524C;line-height:1.47;flex:1}
+/* SPECIAL BLOCKS */
+.byob{margin-top:10px;padding:18px 20px;background:var(--white);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:var(--r)}
+.byob h4{font-family:var(--font-serif);font-size:1rem;font-weight:600;margin-bottom:12px}
+.byob-row{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;line-height:1.5;margin-bottom:8px}
+.byob-row:last-child{margin-bottom:0}
+.btag{font-family:var(--font-mono);font-size:.63rem;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.btag-g{background:var(--green);color:#fff}
+.btag-t{background:#357374;color:#fff}
+.sauce-set{margin-top:18px}
+.sauce-set .slbl{font-size:.79rem;font-weight:500;color:var(--muted);margin-bottom:10px}
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{font-family:var(--font-mono);font-size:.72rem;padding:5px 12px;border-radius:20px;border:1px solid var(--line);background:var(--white);color:#4A4438;cursor:default;transition:background .15s,border-color .15s,color .15s}
+.pill:hover{background:var(--green-pale);border-color:var(--green);color:var(--green)}
+.pill-hot{border-color:#AF1F1F;color:#8C1818}
+.pill-bbq{border-color:var(--amber)}
+.steak-banner{background:linear-gradient(100deg,#111D12,#1B2E1D);color:#fff;border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;gap:14px;margin-bottom:18px;font-size:.87rem;line-height:1.55}
+.steak-banner img{width:52px;height:52px;border-radius:9px;object-fit:cover;flex-shrink:0}
+.steak-banner strong{color:#9ECF9F}
+.cat-foot{font-size:.79rem;color:var(--muted);margin-top:12px;font-style:italic}
+/* INFO */
+#info{background:linear-gradient(135deg,#0E1A0F 0%,#172918 50%,#0E1C1C 100%);color:#F5F0E8;padding:80px 5%}
+.info-inner{max-width:1260px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:52px}
+.info-label{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#7DC47E;margin-bottom:14px}
+.info-block h3{font-family:var(--font-serif);font-size:1.5rem;font-weight:600;margin-bottom:18px}
+.hrs{list-style:none}
+.hrs li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:.88rem}
+.hrs li:last-child{border-bottom:none}
+.hrs .day{color:rgba(245,240,232,.6)}
+.hrs .time{font-family:var(--font-mono);font-size:.8rem;color:#9DCE9F}
+.hrs .today .day{color:#F5F0E8;font-weight:600}
+.hrs .today .time{color:#6CC46D;font-weight:600}
+.contacts{display:flex;flex-direction:column;gap:18px}
+.contact-row{display:flex;gap:12px;font-size:.88rem;line-height:1.6}
+.contact-row svg{width:18px;height:18px;stroke:#7DC47E;fill:none;stroke-width:1.8;flex-shrink:0;margin-top:3px}
+.specials-list{display:flex;flex-direction:column;gap:10px}
+.scard{padding:14px 16px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:.86rem;line-height:1.45}
+.scard-day{font-family:var(--font-mono);font-size:.67rem;color:#7DC47E;letter-spacing:.07em;text-transform:uppercase;display:block;margin-bottom:4px}
+/* FOOTER */
+footer{background:#0A120A;color:rgba(245,240,232,.45);padding:28px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.8rem}
+.footer-brand{font-family:var(--font-serif);font-size:1.08rem;color:rgba(245,240,232,.8)}
+.footer-brand em{color:#7DC47E;font-style:italic;font-weight:500}
+/* MODAL */
+#modal-bg{position:fixed;inset:0;z-index:500;background:rgba(6,10,6,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+#modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--white);border-radius:18px;padding:36px 40px;max-width:480px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.32);transform:translateY(16px);transition:transform .25s;position:relative}
+#modal-bg.open .modal{transform:translateY(0)}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--muted);transition:background .15s}
+.modal-close:hover{background:var(--line)}
+.modal h3{font-family:var(--font-serif);font-size:1.55rem;font-weight:700;margin-bottom:6px}
+.modal p{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:24px}
+.modal-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-option{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 16px;border:1px solid var(--line);border-radius:12px;font-size:.85rem;font-weight:500;color:var(--ink);text-align:center;transition:background .15s,border-color .15s,transform .15s}
+.modal-option:hover{background:var(--green-pale);border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+.modal-option svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8}
+.modal-option small{font-size:.76rem;color:var(--muted)}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+/* RESPONSIVE */
+@media(max-width:1100px){.about-wrap{grid-template-columns:1fr;gap:36px}.photo-mosaic .wide{height:200px}.photo-mosaic img{height:165px}.info-inner{grid-template-columns:1fr 1fr;gap:40px}.menu-layout{grid-template-columns:190px 1fr}.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.menu-layout{grid-template-columns:1fr;padding:20px 5% 60px}.m-sidebar{display:none}.hero-pills{display:none}.grid{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){#hambtn{display:flex}.nav-links{display:none}.hero-copy h1{font-size:2.1rem}.hero-copy p{font-size:.95rem}.about-wrap{padding:44px 5%}.pillars{grid-template-columns:1fr}.photo-mosaic{grid-template-columns:1fr}.photo-mosaic .wide,.photo-mosaic img{height:180px}.menu-top{padding:44px 5% 0;flex-direction:column;align-items:flex-start}.search-field input{width:100%}.grid,.grid3{grid-template-columns:1fr}.info-inner{grid-template-columns:1fr;gap:32px}#info{padding:52px 5%}footer{flex-direction:column;text-align:center}.modal{padding:28px 22px}.modal-options{grid-template-columns:1fr}}
+@media(max-width:400px){.hero-copy h1{font-size:1.85rem}.hero-btns{flex-direction:column}.btn-solid,.btn-ghost{justify-content:center;width:100%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#hero" class="logo">
+    <div class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 18C7 8 11 20 15 12s5-8 8-2"/></svg></div>
+    <div class="logo-words"><strong>Creekside</strong><small>Bar &amp; Grill</small></div>
+  </a>
+  <div class="nav-links">
+    <a href="#about">Our Story</a>
+    <a href="#menu">Menu</a>
+    <a href="#info">Hours</a>
+    <a href="#" class="nav-cta" id="reserveBtn">Reserve a Table</a>
+  </div>
+  <button id="hambtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mob-nav">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mob-nav" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+  <a href="#about">Our Story</a>
+  <a href="#menu">Menu</a>
+  <a href="#info">Hours &amp; Info</a>
+  <a href="#" id="reserveBtnMob">Reserve a Table</a>
+</div>
+
+<section id="hero" aria-label="Hero">
+  <div class="hero-photo" role="img" aria-label="Restaurant interior"></div>
+  <div class="hero-dim" aria-hidden="true"></div>
+  <div class="hero-vig" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Wood-Fired &middot; Hand-Breaded &middot; In-House</div>
+      <h1>Where the creek<br>meets the <em>kitchen.</em></h1>
+      <p>Every sauce, every sausage link, and every scoop of coleslaw is crafted right here. That's the Creekside deal, and we're not changing it.</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-solid">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+          View Full Menu
+        </a>
+        <a href="#" class="btn-ghost" id="reserveBtn2">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Reserve a Table
+        </a>
+      </div>
+    </div>
+    <div class="hero-pills" aria-hidden="true">
+      <div class="hpill"><img src="https://images.unsplash.com/photo-1546069901-522136cf8b73?auto=format&fit=crop&w=120&q=80" alt=""><div class="hpill-txt"><strong>Steak Pit</strong><span>Fri &amp; Sat from 5pm</span></div></div>
+      <div class="hpill"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=120&q=80" alt=""><div class="hpill-txt"><strong>Build Your Pizza</strong><span>Custom toppings</span></div></div>
+      <div class="hpill"><img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=120&q=80" alt=""><div class="hpill-txt"><strong>8 Wing Sauces</strong><span>Bone-in or boneless</span></div></div>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Scroll down">
+    Scroll<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-wrap">
+    <div class="reveal">
+      <div class="eyebrow">Our Story</div>
+      <h2>Made by hand,<br>built for neighbors.</h2>
+      <p>Creekside isn't a chain. Every piece of sausage in our potstickers, every strand of pulled pork, and every ounce of wing sauce is crafted on-site — the way a neighborhood bar &amp; grill should do it.</p>
+      <p>Sit down, order big, and stay longer than you planned. That's the deal we've made with this community.</p>
+      <div class="pillars">
+        <div class="pillar"><img src="https://images.unsplash.com/photo-1558030137-a56c1b002f5c?auto=format&fit=crop&w=80&q=80" alt="" loading="lazy"><h4>Steak Pit</h4><p>Charcoal &amp; wood-fired every Fri &amp; Sat from 5pm.</p></div>
+        <div class="pillar"><img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=80&q=80" alt="" loading="lazy"><h4>8 Sauces</h4><p>Traditional or boneless wings in your sauce of choice.</p></div>
+        <div class="pillar"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=80&q=80" alt="" loading="lazy"><h4>Salad Bar</h4><p>Full fresh salad bar every day — five dressings on deck.</p></div>
+        <div class="pillar"><img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=80&q=80" alt="" loading="lazy"><h4>House-Made</h4><p>Sausage, coleslaw, BBQ sauce — crafted here, not shipped.</p></div>
+      </div>
+    </div>
+    <div class="photo-mosaic reveal" aria-hidden="true">
+      <img class="wide" src="https://images.unsplash.com/photo-1546069901-522136cf8b73?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=450&q=80" alt="" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=450&q=80" alt="" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="menu-top reveal">
+    <div><div class="eyebrow">The Full Menu</div><h2>Something for everyone.</h2></div>
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="searchBox" placeholder="Search dishes&hellip;" autocomplete="off" aria-label="Search menu items">
+    </div>
+  </div>
+  <div class="menu-layout">
+    <aside class="m-sidebar" aria-label="Menu categories">
+      <div class="sidebar-title">Browse</div>
+      <div class="s-group">
+        <div class="s-group-lbl">To Start</div>
+        <div class="s-item" data-cat="starters" tabindex="0" role="button">Starters <span class="ct">13</span></div>
+        <div class="s-item" data-cat="pizza" tabindex="0" role="button">Pizza <span class="ct">6</span></div>
+        <div class="s-item" data-cat="wings" tabindex="0" role="button">Wings <span class="ct">2</span></div>
+      </div>
+      <div class="s-group">
+        <div class="s-group-lbl">Mains</div>
+        <div class="s-item" data-cat="burgers" tabindex="0" role="button">Burgers <span class="ct">7</span></div>
+        <div class="s-item" data-cat="sandwiches" tabindex="0" role="button">Sandwiches <span class="ct">9</span></div>
+        <div class="s-item" data-cat="wraps" tabindex="0" role="button">Wraps <span class="ct">2</span></div>
+        <div class="s-item" data-cat="baskets" tabindex="0" role="button">Baskets <span class="ct">6</span></div>
+        <div class="s-item" data-cat="steaks" tabindex="0" role="button">Steaks <span class="ct">2</span></div>
+      </div>
+      <div class="s-group">
+        <div class="s-group-lbl">Greens</div>
+        <div class="s-item" data-cat="salads" tabindex="0" role="button">Salads <span class="ct">2</span></div>
+        <div class="s-item" data-cat="saladbar" tabindex="0" role="button">Salad Bar <span class="ct">1</span></div>
+      </div>
+      <div class="s-group" style="padding-bottom:12px">
+        <div class="s-group-lbl">More</div>
+        <div class="s-item" data-cat="kids" tabindex="0" role="button">Kids Menu <span class="ct">3</span></div>
+        <div class="s-item" data-cat="shakes" tabindex="0" role="button">Shakes <span class="ct">1</span></div>
+      </div>
+    </aside>
+    <main class="menu-body" id="menuBody" aria-live="polite"></main>
+  </div>
+</section>
+
+<section id="info">
+  <div class="info-inner">
+    <div class="info-block reveal">
+      <div class="info-label">Hours</div>
+      <h3>We're Open</h3>
+      <ul class="hrs" id="hoursList">
+        <li><span class="day">Monday</span><span class="time">11am &ndash; 10pm</span></li>
+        <li><span class="day">Tuesday</span><span class="time">11am &ndash; 10pm</span></li>
+        <li><span class="day">Wednesday</span><span class="time">11am &ndash; 10pm</span></li>
+        <li><span class="day">Thursday</span><span class="time">11am &ndash; 10pm</span></li>
+        <li><span class="day">Friday</span><span class="time">11am &ndash; 11pm</span></li>
+        <li><span class="day">Saturday</span><span class="time">11am &ndash; 11pm</span></li>
+        <li><span class="day">Sunday</span><span class="time">12pm &ndash; 9pm</span></li>
+      </ul>
+    </div>
+    <div class="info-block reveal">
+      <div class="info-label">Find Us</div>
+      <h3>Location &amp; Contact</h3>
+      <div class="contacts">
+        <div class="contact-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Creekside Bar &amp; Grill &mdash; ask your server for our address.</span></div>
+        <div class="contact-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.8a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.16 6.16l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call us to book a table or ask about today's specials.</span></div>
+        <div class="contact-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Follow us for events, specials &amp; Steak Pit nights.</span></div>
+      </div>
+    </div>
+    <div class="info-block reveal">
+      <div class="info-label">What's On</div>
+      <h3>Weekly Specials</h3>
+      <div class="specials-list">
+        <div class="scard"><span class="scard-day">Fri &amp; Sat</span>Steak Pit opens at 5pm &mdash; charcoal &amp; wood T-Bone and Ribeye</div>
+        <div class="scard"><span class="scard-day">All Week</span>Build-your-own pizza with any meat topping for $2.00</div>
+        <div class="scard"><span class="scard-day">Daily</span>Fresh walleye &amp; cod served all day in our fish baskets</div>
+        <div class="scard"><span class="scard-day">All Day</span>Full salad bar &mdash; included with every steak dinner</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">Creekside <em>Bar &amp; Grill</em></span>
+  <span>Wood-fired. Hand-breaded. Made here.</span>
+  <span>&copy; 2026 Creekside Bar &amp; Grill</span>
+</footer>
+
+<div id="modal-bg" role="dialog" aria-modal="true" aria-label="Reserve a table" aria-hidden="true">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <h3>Reserve a Table</h3>
+    <p>Choose how you'd like to book. Walk-ins always welcome — we'll do our best to seat you.</p>
+    <div class="modal-options">
+      <a href="tel:+15550000000" class="modal-option">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.8a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.16 6.16l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Us<small>Fastest way to book</small>
+      </a>
+      <a href="https://www.opentable.com" target="_blank" rel="noopener" class="modal-option">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        OpenTable<small>Online reservation</small>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ════════════════════════════════════════════════════════
+   PRICE EDITOR — update any number below to change it
+   everywhere on the site. Formatting is automatic.
+   ════════════════════════════════════════════════════════ */
+const PRICES = {
+  // STARTERS
+  cheeseballs:13.75, provoloneSticks:11.95, nachoCheeseRavioli:10.95,
+  jalapenoPoppersApp:11.95, tinCanNachos:18.95, pickleFries:9.25,
+  creeksideLoadedFries:13.95, streetTacos:15.95, garlicBreadsticks:9.95,
+  porkbelly:12.95, quesoCheeseDip:9.95, sausagePotsticker:16.95, spinachArtichokeDip:16.95,
+  // PIZZA
+  pizzaCheese:19.95, pizzaPepperoni:21.95, pizzaSupreme:26.95,
+  pizzaJalaponoPopper:25.95, pizzaTaco:24.95, pizzaMeatLovers:25.95, pizzaMeatTopping:2.00,
+  // WINGS
+  wingsBoneless:15.25, wingsHalfLb:8.95, wingsOneLb:16.95, wingsOneHalfLb:23.95, wingsAddOn:1.95,
+  // BURGERS
+  hamburger:10.95, cheeseBurger:11.20, baconCheeseBurger:11.45,
+  doubleBaconCheese:20.95, pattyMelt:13.50, mushroomSwiss:12.95,
+  chickenBurger:10.95, burgerSideUpgrade:2.95,
+  // SANDWICHES
+  everythingBagelBLT:12.50, everythingTurkeyClub:12.95, breadedCluck:9.95,
+  smokedPulledPork:9.95, loadedFriedGlizzy:10.95, buffaloChickenQuesadilla:9.95,
+  pepperedSteak:12.95, chickenBaconRanchMelt:10.95, phillysteakMelt:12.95,
+  // WRAPS
+  turkeyWrap:12.50, grinderWrap:12.95,
+  // BASKETS
+  chickenStripBasket:15.25, codBasket:13.95, walleyeBasket:15.95,
+  shrimpBasket:13.50, smokedRibTipsBasket:14.95, jalapenoShrimpBasket:13.50,
+  // STEAKS
+  searedRibeye:35.95, tBone:35.95,
+  // SALADS
+  creeksideSalad:12.95, chickenClubSalad:12.95,
+  // SALAD BAR
+  fullSaladBar:12.95,
+  // KIDS
+  kidsChickenStrip:9.50, kidsNuggets:9.50, kidsCheeseQuesadilla:7.95,
+  // SHAKES
+  shake14oz:5.50
+};
+
+const FORK_SVG = '<svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><line x1="7" y1="2" x2="7" y2="22"/><path d="M21 15V2s-5 2-5 7v6"/><line x1="21" y1="22" x2="16" y2="22"/></svg>';
+const FIRE_SVG = '<svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 0 1-7 7 6.97 6.97 0 0 1-5.5-2.68"/></svg>';
+const FISH_SVG = '<svg viewBox="0 0 24 24"><path d="M6.5 12C3.5 9 2 6 2 6s3-1.5 6.5.5"/><path d="M17.5 12C20.5 9 22 6 22 6s-3-1.5-6.5.5"/><path d="M6.5 12C3.5 15 2 18 2 18s3 1.5 6.5-.5"/><path d="M17.5 12C20.5 15 22 18 22 18s-3 1.5-6.5-.5"/><ellipse cx="12" cy="12" rx="5.5" ry="5"/></svg>';
+const LEAF_SVG = '<svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>';
+
+const TAG_MAP   = {pop:'ctag-pop',house:'ctag-house',spicy:'ctag-spicy',local:'ctag-local'};
+const TAG_LABEL = {pop:'Popular', house:'In-House',  spicy:'Spicy',     local:'Local'    };
+const fmt = v => '$' + Number(v).toFixed(2);
+
+const MENU_DATA = [
+  { id:'starters', label:'Starters', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=80&q=80',
+    items:[
+      {n:'Cheeseballs',             pk:'cheeseballs',            tags:['pop'],   icon:FORK_SVG, d:'Breaded &amp; fried white cheddar nuggets.',
+       i:'https://images.unsplash.com/photo-1575853121743-60c24f0a7502?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=600&q=80'},
+      {n:'Provolone Sticks',         pk:'provoloneSticks',                        icon:FORK_SVG, d:'Golden-fried provolone cheese sticks.',
+       i:'https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1575853121743-60c24f0a7502?auto=format&fit=crop&w=600&q=80'},
+      {n:'Nacho Cheese Ravioli',     pk:'nachoCheeseRavioli',                     icon:FORK_SVG, d:'Crispy fried ravioli stuffed with nacho cheese.',
+       i:'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=600&q=80'},
+      {n:'Jalapeno Poppers',         pk:'jalapenoPoppersApp',   tags:['spicy'], icon:FIRE_SVG, d:'Fresh jalapeno, cheddar, cream cheese &amp; bacon.',
+       i:'https://images.unsplash.com/photo-1603819583583-3cfb7edc1b80?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=600&q=80'},
+      {n:'Tin Can Nachos',           pk:'tinCanNachos',         tags:['pop'],   icon:FORK_SVG, d:'Taco meat, chips, cheese, beans, salsa &amp; sour cream.',
+       i:'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1603819583583-3cfb7edc1b80?auto=format&fit=crop&w=600&q=80'},
+      {n:'Pickle Fries',             pk:'pickleFries',                            icon:FORK_SVG, d:'Beer battered pickles, fried crispy &amp; golden.',
+       i:'https://images.unsplash.com/photo-1573080496219-bb964701e3e8?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=600&q=80'},
+      {n:'Creekside Loaded Fries',   pk:'creeksideLoadedFries', tags:['house'], icon:FORK_SVG, d:'Bacon, breaded chicken, cheese w/ our secret sauce.',
+       i:'https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1573080496219-bb964701e3e8?auto=format&fit=crop&w=600&q=80'},
+      {n:'Street Tacos',             pk:'streetTacos',                            icon:FORK_SVG, d:'Walleye or pork belly — ask your server for today\'s style.',
+       i:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=600&q=80'},
+      {n:'Garlic Breadsticks',       pk:'garlicBreadsticks',                      icon:FORK_SVG, d:'Warm, buttery, garlicky — great for the table.',
+       i:'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80'},
+      {n:'Porkbelly',                pk:'porkbelly',            tags:['house'], icon:FIRE_SVG, d:'Hickory smoked pork belly, fried &amp; tossed in BBQ.',
+       i:'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'},
+      {n:'Queso Cheese Dip',         pk:'quesoCheeseDip',                         icon:FORK_SVG, d:'Warm queso served with tortilla chips.',
+       i:'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&w=600&q=80'},
+      {n:'Sausage Potsticker',       pk:'sausagePotsticker',    tags:['house'], icon:FORK_SVG, d:'In-house sausage, coleslaw, green onions w/ sauce.',
+       i:'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80'},
+      {n:'Spinach Artichoke Dip',    pk:'spinachArtichokeDip',                    icon:LEAF_SVG, d:'Creamy spinach artichoke dip with tortilla chips.',
+       i:'https://images.unsplash.com/photo-1572441713132-c542fc4fe282?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1539252554453-80ab65ce3586?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'pizza', label:'Pizza', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=80&q=80',
+    extra:`<div class="byob"><h4>Build Your Own Pizza</h4><div class="byob-row"><span class="btag btag-g">$2.00 ea</span><span><strong>Meat:</strong> Pepperoni, Bacon, Sausage &amp; Canadian Bacon</span></div><div class="byob-row"><span class="btag btag-t">FREE</span><span><strong>Veggie:</strong> Onions, Mushrooms, Green Peppers, Jalapenos, Black &amp; Green Olives</span></div></div>`,
+    items:[
+      {n:'Cheese',         pk:'pizzaCheese',          icon:FORK_SVG, d:'Classic cheese pizza, made to order.',
+       i:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80'},
+      {n:'Pepperoni',      pk:'pizzaPepperoni', tags:['pop'], icon:FORK_SVG, d:'Loaded with pepperoni on house cheese.',
+       i:'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80'},
+      {n:'Supreme',        pk:'pizzaSupreme',   icon:FORK_SVG, d:'All meats &amp; veggies available (jalapeno not included).',
+       i:'https://images.unsplash.com/photo-1571066811602-716837d681de?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80'},
+      {n:'Jalapeno Popper',pk:'pizzaJalaponoPopper', tags:['spicy'], icon:FIRE_SVG, d:'Jalapeno, bacon, cream cheese &amp; raspberry topping.',
+       i:'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1571066811602-716837d681de?auto=format&fit=crop&w=600&q=80'},
+      {n:'Taco',           pk:'pizzaTaco',      icon:FORK_SVG, d:"Taco meat, lettuce, tomatoes, topped w/ Dorito's.",
+       i:'https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80'},
+      {n:'Meat Lovers',    pk:'pizzaMeatLovers', tags:['pop'], icon:FORK_SVG, d:'Pepperoni, sausage, bacon &amp; Canadian bacon.',
+       i:'https://images.unsplash.com/photo-1544982503-9f984c14501a?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1571066811602-716837d681de?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'wings', label:'Wings', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=80&q=80',
+    extra:`<div class="sauce-set"><div class="slbl">Choose Your Wing Sauce &mdash; Add carrots, celery, or both for <strong>$1.95</strong></div><div class="pills"><span class="pill">Buffalo</span><span class="pill">Knockout</span><span class="pill">Buffalo Garlic Parm</span><span class="pill pill-bbq">Bourbon</span><span class="pill">Teriyaki</span><span class="pill pill-bbq">Hickory BBQ</span><span class="pill pill-hot">Carolina Reaper</span><span class="pill pill-bbq">Honey BBQ</span></div></div>`,
+    items:[
+      {n:'Boneless Buffalo Wings', pk:'wingsBoneless', tags:['pop'], icon:FIRE_SVG, d:'Crispy boneless chicken tossed in your wing sauce.',
+       i:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=600&q=80'},
+      {n:'Traditional Wings', mp:`<span class="tiers"><span>&frac12; lb (5&ndash;6) &mdash; $8.95</span><span>1 lb (9&ndash;10) &mdash; $16.95</span><span>1&frac12; lb (15&ndash;16) &mdash; $23.95</span></span>`,
+       icon:FIRE_SVG, d:'Bone-in wings cooked to order in your chosen sauce.',
+       i:'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'burgers', label:'Burgers', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=80&q=80',
+    foot:'Add a side of flat fries or pub fries for $2.95.',
+    items:[
+      {n:'Hamburger',          pk:'hamburger',          icon:FORK_SVG, d:'Beef patty topped with pickle.',
+       i:'https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=600&q=80'},
+      {n:'Cheese Burger',      pk:'cheeseBurger',       icon:FORK_SVG, d:'Beef patty, American cheese &amp; pickles.',
+       i:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=600&q=80'},
+      {n:'Bacon Cheese Burger',pk:'baconCheeseBurger', tags:['pop'], icon:FORK_SVG, d:'Patty, American cheese, bacon &amp; pickles.',
+       i:'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=600&q=80'},
+      {n:'Double Bacon Cheese',pk:'doubleBaconCheese', tags:['pop'], icon:FORK_SVG, d:'Two patties, American cheese, bacon &amp; pickles.',
+       i:'https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=600&q=80'},
+      {n:'Patty Melt',         pk:'pattyMelt',          icon:FORK_SVG, d:'Patty, Swiss, American, saut&eacute;ed onion &amp; sourdough.',
+       i:'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=600&q=80'},
+      {n:'Mushroom &amp; Swiss',pk:'mushroomSwiss',     icon:FORK_SVG, d:'Patty, mushroom &amp; Swiss cheese.',
+       i:'https://images.unsplash.com/photo-1549611016-3a70d82b5040?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=600&q=80'},
+      {n:'Chicken Burger',     pk:'chickenBurger',      icon:FORK_SVG, d:'Chicken patty, Swiss, bacon, lettuce, tomato &amp; mayo.',
+       i:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'sandwiches', label:'Sandwiches', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=80&q=80',
+    items:[
+      {n:'Everything Bagel BLT',       pk:'everythingBagelBLT',         icon:FORK_SVG, d:'Bagel, bacon, lettuce, tomato &amp; mayo.',
+       i:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1567234669003-dce7a7a88821?auto=format&fit=crop&w=600&q=80'},
+      {n:'Everything Turkey Club',     pk:'everythingTurkeyClub',       icon:FORK_SVG, d:'Bagel, turkey, bacon, Swiss, lettuce, tomato &amp; mayo.',
+       i:'https://images.unsplash.com/photo-1567234669003-dce7a7a88821?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80'},
+      {n:'Breaded Cluck',              pk:'breadedCluck',      tags:['pop'], icon:FORK_SVG, d:'Breaded chicken, wing sauce, lettuce, tomato &amp; ranch.',
+       i:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80'},
+      {n:'Smoked Pulled Pork',         pk:'smokedPulledPork',  tags:['house'], icon:FIRE_SVG, d:'House smoked pork, coleslaw &amp; BBQ.',
+       i:'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'},
+      {n:'Loaded Fried Glizzy',        pk:'loadedFriedGlizzy',          icon:FORK_SVG, d:'Bacon-wrapped hot dog, onions, jalapenos &amp; nacho cheese.',
+       i:'https://images.unsplash.com/photo-1610614819513-58e34989848b?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1568901346745-7c7a8a7c5c2b?auto=format&fit=crop&w=600&q=80'},
+      {n:'Buffalo Chicken Quesadilla', pk:'buffaloChickenQuesadilla', tags:['spicy'], icon:FIRE_SVG, d:'Fried chicken, wing sauce, cheese &amp; side ranch.',
+       i:'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=600&q=80'},
+      {n:'Peppered Steak',             pk:'pepperedSteak',              icon:FORK_SVG, d:'Sliced ribeye, Texas toast, lettuce, tomato, pepper mayo.',
+       i:'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1546069901-522136cf8b73?auto=format&fit=crop&w=600&q=80'},
+      {n:'Chicken Bacon Ranch Melt',   pk:'chickenBaconRanchMelt',      icon:FORK_SVG, d:'Fried chicken, bacon, Swiss, American &amp; ranch.',
+       i:'https://images.unsplash.com/photo-1551782450-17144efb9c50?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=600&q=80'},
+      {n:'Philly Steak Melt',          pk:'phillysteakMelt',            icon:FORK_SVG, d:'Steak, onions, green peppers, Swiss w/ chipotle sauce.',
+       i:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'wraps', label:'Wraps', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=80&q=80',
+    items:[
+      {n:'Turkey Wrap',  pk:'turkeyWrap',  icon:FORK_SVG, d:'Turkey, bacon, cheese, lettuce, tomato &amp; grinder sauce.',
+       i:'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1567234669003-dce7a7a88821?auto=format&fit=crop&w=600&q=80'},
+      {n:'Grinder Wrap', pk:'grinderWrap', icon:FORK_SVG, d:'Pepperoni, turkey, mozzarella, lettuce, tomato &amp; grinder sauce.',
+       i:'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'baskets', label:'Baskets', gc:'grid3',
+    ci:'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=80&q=80',
+    foot:'All baskets served with choice of flat fries or pub fries.',
+    items:[
+      {n:'Chicken Strip Basket',   pk:'chickenStripBasket',  tags:['pop'],   icon:FORK_SVG, d:'Strips, fries &amp; dipping sauce.',
+       i:'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=600&q=80'},
+      {n:'Cod Basket',             pk:'codBasket',                            icon:FISH_SVG, d:'Breaded cod filets, fries &amp; tartar sauce.',
+       i:'https://images.unsplash.com/photo-1580210501831-a8754aaa1c93?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1559140464-a95d52fb5b8d?auto=format&fit=crop&w=600&q=80'},
+      {n:'Walleye Basket',         pk:'walleyeBasket',        tags:['local'], icon:FISH_SVG, d:'Walleye, fries &amp; tartar sauce.',
+       i:'https://images.unsplash.com/photo-1559140464-a95d52fb5b8d?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1580210501831-a8754aaa1c93?auto=format&fit=crop&w=600&q=80'},
+      {n:'Shrimp Basket',          pk:'shrimpBasket',                         icon:FISH_SVG, d:'Breaded shrimp, fries &amp; cocktail sauce.',
+       i:'https://images.unsplash.com/photo-1565347105795-6fac3c5a7b90?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1510130113020-7c7c4aa81c04?auto=format&fit=crop&w=600&q=80'},
+      {n:'Smoked Pork Rib Tips',   pk:'smokedRibTipsBasket',  tags:['house'], icon:FIRE_SVG, d:'Pork rib tips, BBQ sauce &amp; fries.',
+       i:'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=600&q=80'},
+      {n:'Jalapeno Shrimp Basket', pk:'jalapenoShrimpBasket', tags:['spicy'], icon:FIRE_SVG, d:'Breaded shrimp, fries &amp; cocktail sauce.',
+       i:'https://images.unsplash.com/photo-1510130113020-7c7c4aa81c04?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1565347105795-6fac3c5a7b90?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'steaks', label:'Steaks', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1546069901-522136cf8b73?auto=format&fit=crop&w=80&q=80',
+    pre:`<div class="steak-banner"><img src="https://images.unsplash.com/photo-1558030137-a56c1b002f5c?auto=format&fit=crop&w=120&q=80" alt="" loading="lazy"><span>Steak Pit fires every <strong>Friday &amp; Saturday from 5pm</strong> &mdash; charcoal &amp; wood-fired T-Bone and Ribeye. All steaks include salad bar and choice of potato.</span></div>`,
+    items:[
+      {n:'12 oz Seared Ribeye', pk:'searedRibeye', tags:['pop'], icon:FIRE_SVG, d:'Includes salad bar and choice of potato.',
+       i:'https://images.unsplash.com/photo-1546069901-522136cf8b73?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1558030137-a56c1b002f5c?auto=format&fit=crop&w=600&q=80'},
+      {n:'12 oz T-Bone',        pk:'tBone',                    icon:FIRE_SVG, d:'Charcoal &amp; wood-fired in our steak pit. Fri &amp; Sat only. Includes salad bar and choice of potato.',
+       i:'https://images.unsplash.com/photo-1558030137-a56c1b002f5c?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1546069901-522136cf8b73?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'salads', label:'Salads', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=80&q=80',
+    extra:`<div class="sauce-set"><div class="slbl">Dressing Choices</div><div class="pills"><span class="pill">Ranch</span><span class="pill">French</span><span class="pill">Blue Cheese</span><span class="pill">Dorothy Lynch</span><span class="pill">Thousand Island</span></div></div>`,
+    items:[
+      {n:'Creekside Salad',    pk:'creeksideSalad',    icon:LEAF_SVG, d:'Fresh salad wedge, feta cheese, bacon &amp; diced tomato.',
+       i:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80'},
+      {n:'Chicken Club Salad', pk:'chickenClubSalad', tags:['pop'], icon:LEAF_SVG, d:'Grilled chicken, bacon, cheese, fresh greens &amp; diced tomato.',
+       i:'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'saladbar', label:'Salad Bar', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=80&q=80',
+    items:[
+      {n:'Full Salad Bar', pk:'fullSaladBar', icon:LEAF_SVG, d:'All-you-can-eat salad bar with fresh toppings and five dressings.',
+       i:'https://images.unsplash.com/photo-1607532941433-304659e8198a?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'kids', label:'Kids Menu', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=80&q=80',
+    note:'All items served with choice of flat fries or pub fries.',
+    items:[
+      {n:'Chicken Strip Basket', pk:'kidsChickenStrip',    icon:FORK_SVG, d:'Strips, fries &amp; dipping sauce.',
+       i:'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=600&q=80'},
+      {n:'Chicken Nuggets',      pk:'kidsNuggets',          icon:FORK_SVG, d:'Breaded nuggets, fries &amp; dipping sauce.',
+       i:'https://images.unsplash.com/photo-1587325256668-e9e72da01778?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=600&q=80'},
+      {n:'Cheese Quesadilla',    pk:'kidsCheeseQuesadilla', icon:FORK_SVG, d:'Tortilla, cheese &amp; dipping sauce.',
+       i:'https://images.unsplash.com/photo-1618040996337-56904b7850b9?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=600&q=80'},
+    ]},
+  { id:'shakes', label:'Shakes', gc:'grid',
+    ci:'https://images.unsplash.com/photo-1572490122747-3538d72e7cbb?auto=format&fit=crop&w=80&q=80',
+    extra:`<div class="sauce-set"><div class="slbl">Available Flavors</div><div class="pills"><span class="pill">Vanilla</span><span class="pill">Mango</span><span class="pill">Butter Pecan</span><span class="pill">Chocolate</span><span class="pill">Watermelon</span><span class="pill">Strawberry</span><span class="pill">Root Beer</span><span class="pill">Black Cherry</span><span class="pill">Raspberry</span></div></div>`,
+    items:[
+      {n:'14 oz Shake', pk:'shake14oz', icon:FORK_SVG, d:'Nine flavors, made to order.',
+       i:'https://images.unsplash.com/photo-1572490122747-3538d72e7cbb?auto=format&fit=crop&w=600&q=80',
+       i2:'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=600&q=80'},
+    ]},
+];
+
+function buildCard(item) {
+  const tags = (item.tags||[]).map(t=>`<span class="ctag ${TAG_MAP[t]}">${TAG_LABEL[t]}</span>`).join('');
+  const price = item.mp
+    ? `<span class="card-price">${item.mp}</span>`
+    : `<span class="card-price">${fmt(PRICES[item.pk])}</span>`;
+  const name = item.n;
+  const search = (name + ' ' + item.d).toLowerCase().replace(/<[^>]+>/g,'');
+  return `<article class="card" data-search="${search}">
+    <div class="card-img-box">
+      <img class="card-photo" src="${item.i}" alt="${name.replace(/&amp;/g,'&')}" loading="lazy"
+        onerror="this.src='${item.i2}';this.onerror=function(){this.style.display='none';this.nextElementSibling.style.display='flex'}">
+      <div class="card-fallback">${item.icon}<span>${name.replace(/&amp;/g,'&')}</span></div>
+      ${tags?`<div class="card-tags">${tags}</div>`:''}
+    </div>
+    <div class="card-body">
+      <div class="card-top"><span class="card-name">${name}</span>${price}</div>
+      <p class="card-desc">${item.d}</p>
+    </div>
+  </article>`;
+}
+
+function buildSection(cat) {
+  return `<section class="cat-section reveal" id="${cat.id}">
+    <div class="cat-hd">
+      <img class="cat-ico" src="${cat.ci}" alt="" loading="lazy">
+      <h3>${cat.label}</h3><div class="cat-rule"></div>
+    </div>
+    ${cat.note?`<p class="cat-note">${cat.note}</p>`:''}
+    ${cat.pre||''}
+    <div class="${cat.gc||'grid'}">${cat.items.map(buildCard).join('')}</div>
+    ${cat.extra||''}
+    ${cat.foot?`<p class="cat-foot">${cat.foot}</p>`:''}
+  </section>`;
+}
+
+document.getElementById('menuBody').innerHTML = MENU_DATA.map(buildSection).join('');
+
+/* Search */
+const searchBox = document.getElementById('searchBox');
+searchBox.addEventListener('input', () => {
+  const q = searchBox.value.trim().toLowerCase();
+  document.querySelectorAll('.card').forEach(c => { c.hidden = !!q && !c.dataset.search.includes(q); });
+  document.querySelectorAll('.cat-section').forEach(s => {
+    s.hidden = !!q && ![...s.querySelectorAll('.card')].some(c => !c.hidden);
+  });
+});
+
+/* Sidebar IntersectionObserver */
+const sideItems = document.querySelectorAll('.s-item');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) sideItems.forEach(n => n.classList.toggle('on', n.dataset.cat === e.target.id));
+  });
+}, { rootMargin:'-15% 0px -70% 0px', threshold:0 });
+document.querySelectorAll('.cat-section').forEach(c => io.observe(c));
+sideItems.forEach(item => {
+  item.addEventListener('click', () => document.getElementById(item.dataset.cat)?.scrollIntoView({behavior:'smooth',block:'start'}));
+  item.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();item.click();} });
+});
+
+/* Nav stuck state */
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('stuck', scrollY > 60), {passive:true});
+
+/* Mobile nav — using correct IDs: hambtn & mob-nav */
+const menuButton = document.getElementById('hambtn');
+const mobileNavigationOverlay = document.getElementById('mob-nav');
+function toggleMobileNav(forceClose) {
+  const opening = forceClose ? false : !menuButton.classList.contains('open');
+  menuButton.classList.toggle('open', opening);
+  menuButton.setAttribute('aria-expanded', String(opening));
+  mobileNavigationOverlay.classList.toggle('open', opening);
+  mobileNavigationOverlay.setAttribute('aria-hidden', String(!opening));
+  document.body.style.overflow = opening ? 'hidden' : '';
+}
+menuButton.addEventListener('click', () => toggleMobileNav());
+mobileNavigationOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMobileNav(true)));
+document.addEventListener('keydown', e => { if(e.key==='Escape') toggleMobileNav(true); });
+
+/* Reservation modal */
+const modalBg = document.getElementById('modal-bg');
+function openModal(e) { e.preventDefault(); modalBg.classList.add('open'); modalBg.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+function closeModal() { modalBg.classList.remove('open'); modalBg.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+['reserveBtn','reserveBtn2','reserveBtnMob'].forEach(id => document.getElementById(id)?.addEventListener('click', openModal));
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalBg.addEventListener('click', e => { if(e.target===modalBg) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape' && modalBg.classList.contains('open')) closeModal(); });
+
+/* Today's hours */
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+document.querySelectorAll('#hoursList li').forEach(li => {
+  if(li.querySelector('.day')?.textContent.trim() === DAYS[new Date().getDay()]) li.classList.add('today');
+});
+
+/* Scroll reveal */
+const revObs = new IntersectionObserver((entries, obs) => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);} });
+}, {threshold:.08});
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+</script>
+</body>
+</html>
